@@ -4,7 +4,7 @@
 <div class="container mt-4">
     <h2 class="mb-4"><i class="fas fa-list-alt"></i> Parameter Penilaian</h2>
     <a href="{{ route('parameters.create') }}" class="btn btn-primary mb-3">
-        <i class="fas fa-plus"></i> Tambah Parameter
+        <i class="fas fa-plus"></i> Add Parameter
     </a>
     <table class="table table-striped table-hover">
         <thead class="table-dark">
