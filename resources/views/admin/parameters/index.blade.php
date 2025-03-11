@@ -10,7 +10,7 @@
         <thead class="table-dark">
             <tr>
                 <th>Nama Parameter</th>
-                <th>Aksi Kamisan</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
