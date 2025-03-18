@@ -20,11 +20,16 @@ class MentorController extends Controller
     public function daftarStudent()
     {
         $mentor = Auth::user();
+        $students = User::where('role', 'student')
+        ->where('status', 'Aktif')
+        ->whereHas('mentoring', function ($query) use ($mentor) {
+            $query->where('mentor_id', $mentor->id);
+        })
+        ->get();
 
-        $students = Mentoring::where('mentor_id', $mentor->id)
-            ->with('student')
-            ->get()
-            ->pluck('student');
+        if ($students->isEmpty()) {
+            return view('mentor.daftar_student', compact('students'))->with('info', 'Tidak ada student yang sedang Anda mentori.');
+        }
 
         return view('mentor.daftar_student', compact('students'));
     }
@@ -132,14 +137,61 @@ class MentorController extends Controller
         return redirect()->route('mentor.riwayat')->with('success', 'Penilaian berhasil diperbarui!');
     }
 
+    public function updateStatus(Request $request, $studentId)
+    {
+        $request->validate([
+            'status' => 'required|in:Aktif,Tidak Aktif',
+        ]);
+    
+        $student = User::findOrFail($studentId);
+        $student->update(['status' => $request->status]);
+
+        $mentor = Auth::user();
+        $allStudentsInactive = User::where('role', 'student')
+        ->whereHas('mentoring', function ($query) use ($mentor) {
+            $query->where('mentor_id', $mentor->id);
+        })
+        ->where('status', 'Aktif')
+        ->doesntExist();
+
+        if ($allStudentsInactive) {
+            Mentoring::where('mentor_id', $mentor->id)->delete();
+        }
+
+        $hasRating = Penilaian::where('student_id', $studentId)
+                          ->where('mentor_id', $mentor->id)
+                          ->exists();
+
+        if (!$hasRating && $request->status === 'Tidak Aktif') {
+            return response()->json(['success' => false, 'message' => 'Anda belum memberikan penilaian.']);
+        }
+    
+        return response()->json([
+            'success' => true,
+            'message' => 'Status berhasil diperbarui.',
+        ]);
+    }
+
+    public function checkRating($studentId)
+    {
+        $mentor = Auth::user();
+        $hasRating = Penilaian::where('student_id', $studentId)
+                            ->where('mentor_id', $mentor->id)
+                            ->exists();
+
+        return response()->json(['hasRating' => $hasRating]);
+    }
+
     public function riwayat()
     {
         $mentor = Auth::user();
         $riwayatPenilaian = Penilaian::whereHas('student', function ($query) use ($mentor) {
-            $query->where('mentor_id', $mentor->id);
-        })
-        ->with(['student', 'indikatorGrup', 'parameter', 'nilai'])
-        ->get();
+                $query->where('mentor_id', $mentor->id);
+            })
+            ->with(['student', 'parameter', 'nilai'])
+            ->get()
+            ->groupBy('student_id');
+
         return view('mentor.riwayat', compact('riwayatPenilaian'));
     }
 }

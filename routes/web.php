@@ -34,7 +34,9 @@ Route::middleware(['auth', 'mentor'])->group(function () {
     Route::get('/mentor/daftar-student', [MentorController::class, 'daftarStudent'])->name('mentor.daftar-student');
     Route::get('/indikator-nilai/{grupId}', [IndikatorNilaiController::class, 'getNilaiByGrup']);
     Route::get('/mentor/edit-penilaian/{studentId}', [MentorController::class, 'editPenilaian'])->name('mentor.edit-penilaian');
-    Route::put('/mentor/update-penilaian/{studentId}', [MentorController::class, 'updatePenilaian'])->name('mentor.update-penilaian');  
+    Route::put('/mentor/update-status/{studentId}', [MentorController::class, 'updateStatus'])->name('mentor.update-status');
+    Route::get('/mentor/check-rating/{studentId}', [MentorController::class, 'checkRating'])->name('mentor.checkRating');
+    Route::put('/mentor/update-penilaian/{studentId}', [MentorController::class, 'updatePenilaian'])->name('mentor.update-penilaian');
 });
 
 Route::middleware(['auth', 'student'])->group(function () {
@@ -42,12 +44,9 @@ Route::middleware(['auth', 'student'])->group(function () {
     Route::get('/student/data-diri', [StudentController::class, 'dataDiri'])->name('student.data-diri');
     Route::post('/student/simpan-data-diri', [StudentController::class, 'simpanDataDiri'])->name('student.simpan-data-diri');
     Route::get('/student/nilai-saya', [StudentController::class, 'nilaiSaya'])->name('student.nilai-saya');
+    Route::get('/student/nilai/export-pdf', [StudentController::class, 'exportNilaiPDF'])->name('student.nilai.export-pdf');
 });
 
 Route::get('/', function () {   
     return view('auth.login');
 });
-
-// Route::prefix('api')->group(function () {
-//     Route::get('/nilai-indikator/{indikator_grup_id}', [NilaiIndikatorController::class, 'index']);
-// });

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-4">
-    <h2>Data Diri</h2>
+    <h2 class="text-center mb-4">Data Diri</h2>
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -56,7 +56,9 @@
                 <div style="margin-bottom: 20px;"></div>
                 <div class="form-group row">
                     <div class="col-sm-10 offset-sm-2">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Simpan
+                        </button>
                     </div>
                 </div>
             </form>

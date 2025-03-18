@@ -84,5 +84,252 @@ select {
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 16px;
-    padding-right: 30px; /* Ruang agar teks tidak menutupi panah */
+    padding-right: 30px;
+}
+
+/* Gaya untuk card mahasiswa */
+.card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    animation: fadeIn 0.5s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Gaya untuk avatar */
+.avatar {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    line-height: 80px;
+    text-align: center;
+}
+
+/* Gaya untuk tombol */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Gaya untuk modal */
+.modal-content {
+    border-radius: 10px;
+    border: none;
+}
+
+.modal-header {
+    background-color: #007bff;
+    color: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.badge.bg-success {
+    background-color: #ff0 !important;
+    color: black !important;
+}
+
+.modal-title {
+    font-weight: bold;
+}
+
+.modal-body table {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.modal-body th, .modal-body td {
+    padding: 12px;
+    text-align: left;
+}
+
+.modal-body th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.modal-body tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Gaya untuk badge skor */
+.badge {
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 5px;
+}
+
+.bg-success {
+    background-color: #ff0 !important;
+    color: black !important;
+}
+
+/* Animasi untuk card */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animasi untuk modal */
+.modal.fade .modal-dialog {
+    transform: translateY(-50px);
+    transition: transform 0.3s ease-out;
+}
+
+.modal.show .modal-dialog {
+    transform: translateY(0);
+}
+
+/* Gaya untuk card mentor */
+.mentor-card {
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mentor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Gaya untuk avatar */
+.avatar {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    line-height: 60px;
+    text-align: center;
+}
+
+/* Gaya untuk tabel */
+.table-responsive {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table-hover tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table-dark {
+    background-color: #343a40;
+    color: #fff;
+}
+
+.table-dark th {
+    background-color: #2c3136;
+    border-color: #454d55;
+}
+
+/* Gaya untuk badge skor */
+.badge {
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 5px;
+}
+
+.bg-success {
+    background-color: #28a745 !important;
+}
+
+/* Animasi untuk card */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mentor-card {
+    animation: fadeIn 0.5s ease;
+}
+
+.table-row {
+    animation: fadeIn 0.5s ease;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.form-control-lg {
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    padding: 12px;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control-lg:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+.col-form-label {
+    font-size: 16px;
+    color: #333;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.alert {
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 16px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
 }

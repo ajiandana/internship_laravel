@@ -9,34 +9,37 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     <style>
-        body {
-            background-image: url("{{ asset('img/bg.jpg') }}");
-            background-size: cover;
-        }
-
         .dashboard-bg {
             background-image: url("{{ asset('img/background_admin.jpg') }}");
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
         }
-        .nav-link.active {
-            font-weight: bold;
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+        }
+        body {
+            padding-top: 60px;
+        }
+        .nav-link {
             color: #fff !important;
-            background-color: #007bff;
+            transition: 0.3s;
+        }
+        .nav-link:hover, .nav-link.active {
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 5px;
             padding: 8px 16px;
-            transition: background-color 0.3s ease;
-        }
-        .nav-link:hover {
-            background-color: #0056b3;
-            border-radius: 5px;
-            color: #fff !important;
         }
     </style>
 </head>
-<body class="{{ request()->routeIs('dashboard') ? 'dashboard-bg' : '' }}">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('dashboard') }}">
                 <i class="fas fa-user-shield"></i> Administrator Panel
@@ -44,7 +47,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('instansi.index') || request()->routeIs('instansi.create') || request()->routeIs('instansi.edit') ? 'active' : '' }}" href="{{ route('instansi.index') }}">
@@ -71,20 +74,18 @@
                             <i class="fas fa-chart-bar"></i> Jenis Indikator
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                            @csrf
+                            <button type="submit" class="btn btn-danger">Logout</button>
+                        </form>
+                    </li>
                 </ul>
             </div>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <form action="{{ route('logout') }}" method="POST" style="display:inline;">
-                        @csrf
-                        <button type="submit" class="btn btn-danger">Logout</button>
-                    </form>
-                </li>
-            </ul>
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container-fluid">
         @yield('content')
     </div>
 

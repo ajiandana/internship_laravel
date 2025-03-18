@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Mentoring;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MentoringController extends Controller
 {
@@ -16,7 +17,7 @@ class MentoringController extends Controller
 
     public function create()
     {
-        $students = User::where('role', 'student')->get();
+        $students = User::where('role', 'student')->where('status', 'Aktif')->get();
         $mentors = User::where('role', 'mentor')->get();
         return view('admin.mentorings.create', compact('students', 'mentors'));
     }
@@ -61,5 +62,16 @@ class MentoringController extends Controller
     {
         $mentoring->delete();
         return redirect()->route('mentorings.index')->with('success', 'Mentoring berhasil dihapus!');
+    }
+
+    public function selesaiMagang($studentId)
+    {
+        dd("Masuk ke fungsi selesaiMagang dengan studentId: " . $studentId);
+        $student = User::findOrFail($studentId);
+        $student->update(['status' => 'Tidak Aktif']);
+
+        // Mentoring::where('student_id', $studentId)->delete();
+
+        return redirect()->route('mentorings.index')->with('success', 'Student telah menyelesaikan magang!');
     }
 }

@@ -16,15 +16,19 @@
         margin: 0;
         padding: 0;
         height: 100%;
+        width: 100%;
+        overflow-x: hidden;
     }
 
     .dashboard-background {
         background-image: url('{{ asset("img/students-photo.jpg") }}');
         background-size: cover;
         background-position: center;
-        height: 100%;
-        width: 100%;
-        position: relative;
+        background-repeat: no-repeat;
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        left: 0;
     }
 
     .dashboard-overlay {
@@ -33,7 +37,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: rgba(0, 0, 0, 0.7);
         display: flex;
         align-items: center;
         justify-content: center;

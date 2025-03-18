@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-// use Illuminate\Container\Attributes\Auth;
+use App\Models\Mentoring;
 use App\Models\Penilaian;
 use Illuminate\Http\Request;
 use App\Models\MasterInstansi;
-use App\Models\Mentoring;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
@@ -44,19 +44,21 @@ class StudentController extends Controller
 
     public function nilaiSaya()
     {
-        $student = Auth::user();;
+        $student = Auth::user();
         $penilaian = Penilaian::where('student_id', $student->id)->get();
+    
+        // Cari mentor dari data mentoring
         $mentor = null;
         if ($student->mentoring) {
             $mentor = $student->mentoring->mentor;
+        } else {
+            // Jika tidak ada data mentoring, cari mentor dari tabel penilaian
+            if ($penilaian->isNotEmpty()) {
+                $mentor = $penilaian->first()->mentor;
+            }
         }
-
+    
         return view('student.nilai_saya', compact('student', 'penilaian', 'mentor'));
-        // $penilaian = Penilaian::where('student_id', $student->id)
-        // ->with(['parameter', 'nilai', 'student.mentoring.mentor'])
-        // ->get();
-
-        // return view('student.nilai_saya', compact('student', 'penilaian'));
     }
 
     public function getMentorName()
@@ -68,5 +70,27 @@ class StudentController extends Controller
         ->get();
 
         return view('student.nilai_saya', compact('mentoriname'));
+    }
+
+    public function exportNilaiPDF()
+    {
+        $student = Auth::user();
+        $penilaian = Penilaian::where('student_id', $student->id)->get();
+
+        // Cari mentor dari data mentoring atau penilaian
+        $mentor = null;
+        if ($student->mentoring) {
+            $mentor = $student->mentoring->mentor;
+        } else {
+            if ($penilaian->isNotEmpty()) {
+                $mentor = $penilaian->first()->mentor;
+            }
+        }
+
+        // Load view ke PDF
+        $pdf = Pdf::loadView('student.export_nilai_pdf', compact('student', 'penilaian', 'mentor'));
+
+        // Download PDF
+        return $pdf->download('nilai-saya.pdf');
     }
 }
