@@ -37,6 +37,7 @@ Route::middleware(['auth', 'mentor'])->group(function () {
     Route::put('/mentor/update-status/{studentId}', [MentorController::class, 'updateStatus'])->name('mentor.update-status');
     Route::get('/mentor/check-rating/{studentId}', [MentorController::class, 'checkRating'])->name('mentor.checkRating');
     Route::put('/mentor/update-penilaian/{studentId}', [MentorController::class, 'updatePenilaian'])->name('mentor.update-penilaian');
+    Route::get('/mentor/riwayat/export-pdf/{studentId}', [MentorController::class, 'exportRiwayatPDF'])->name('mentor.riwayat.export-pdf');
 });
 
 Route::middleware(['auth', 'student'])->group(function () {

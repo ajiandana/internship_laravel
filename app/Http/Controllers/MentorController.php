@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\MasterParameter;
 use App\Models\MasterIndikatorGrup;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MentorController extends Controller
 {
@@ -193,5 +194,23 @@ class MentorController extends Controller
             ->groupBy('student_id');
 
         return view('mentor.riwayat', compact('riwayatPenilaian'));
+    }
+
+    public function exportRiwayatPDF($studentId)
+    {
+        $mentor = Auth::user();
+        $student = User::with('instansi')->findOrFail($studentId);
+        $penilaian = Penilaian::with(['parameter', 'nilai'])
+            ->where('student_id', $studentId)
+            ->where('mentor_id', $mentor->id)
+            ->get();
+
+        $pdf = Pdf::loadView('mentor.pdf.riwayat_penilaian', [
+            'student' => $student,
+            'penilaian' => $penilaian,
+            'mentor' => $mentor
+        ]);
+
+        return $pdf->download('riwayat-nilai-'.$student->nama_lengkap.'.pdf');
     }
 }

@@ -40,8 +40,19 @@
                                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <p><strong>Nama:</strong> {{ $student->nama_lengkap }}</p>
+                                        <p><strong>No. Identitas:</strong> {{ $student->no_identitas }}</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Instansi:</strong> {{ $student->instansi->nama_instansi }}</p>
+                                        <p><strong>Mentor:</strong> {{ Auth::user()->nama_lengkap }}</p>
+                                    </div>
+                                </div>
+                                
                                 <table class="table table-hover">
-                                    <thead>
+                                    <thead class="table-dark">
                                         <tr>
                                             <th>Parameter</th>
                                             <th>Skor</th>
@@ -62,6 +73,9 @@
                                 </table>
                             </div>
                             <div class="modal-footer">
+                                <a href="{{ route('mentor.riwayat.export-pdf', ['studentId' => $studentId]) }}" class="btn btn-success me-2">
+                                    <i class="fas fa-file-pdf"></i> Unduh PDF
+                                </a>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                     <i class="fas fa-times"></i> Tutup
                                 </button>

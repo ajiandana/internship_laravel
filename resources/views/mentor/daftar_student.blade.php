@@ -97,6 +97,8 @@
                         } else {
                             // Jika belum ada penilaian, tampilkan modal notifikasi
                             const noRatingModal = new bootstrap.Modal(document.getElementById('noRatingModal'));
+                            // Update link penilaian dengan student ID yang dipilih
+                            document.getElementById('penilaianLink').href = `/mentor/penilaian/${selectedStudentId}`;
                             noRatingModal.show();
                         }
                     })
@@ -166,7 +168,7 @@
                 Anda belum memberikan penilaian. Silakan berikan penilaian terlebih dahulu sebelum mengubah status menjadi "Selesai".
             </div>
             <div class="modal-footer">
-                <a href="{{ route('mentor.penilaian', $student->id) }}" class="btn btn-primary">Isi Penilaian</a>
+                <a href="#" id="penilaianLink" class="btn btn-primary">Isi Penilaian</a>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
             </div>
         </div>

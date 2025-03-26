@@ -89,34 +89,32 @@
     </style>
 </head>
 <body>
-    <!-- Header dengan Gambar Kop -->
     <div class="header">
         <img src="{{ public_path('img/kop.jpg') }}" alt="Kop Surat">
     </div>
 
-    <!-- Judul -->
     <h2 class="text-center text-primary mb-4">Penilaian Magang</h2>
-
-    <!-- Card untuk Data Diri dan Mentor -->
     <div class="card">
-        <div class="data-item">
-            <strong>Nama</strong>
-            <span>: {{ $student->nama_lengkap }}</span>
-        </div>
-        <div class="data-item">
-            <strong>No. Identitas</strong>
-            <span>: {{ $student->no_identitas }}</span>
-        </div>
-        <div class="data-item">
-            <strong>Instansi</strong>
-            <span>: {{ $student->instansi->nama_instansi }}</span>
-        </div>
-        @if ($mentor)
-            <div class="data-item">
-                <strong>Mentor</strong>
-                <span>: {{ $mentor->nama_lengkap }}</span>
-            </div>
-        @endif
+        <table>
+            <tr>
+                <td>Nama</td>
+                <td>: <strong>{{ $student->nama_lengkap }}</strong></td>
+            </tr>
+            <tr>
+                <td>No. Identitas</td>
+                <td>: <strong>{{ $student->no_identitas }}</strong></td>
+            </tr>
+            <tr>
+                <td>Instansi</td>
+                <td>: <strong>{{ $student->instansi->nama_instansi }}</strong></td>
+            </tr>
+            @if ($mentor)
+            <tr>
+                <td>Mentor</td>
+                <td>: <strong>{{ $mentor->nama_lengkap }}</strong></td>
+            </tr>
+            @endif
+        </table>
     </div>
 
     <!-- Tabel Nilai -->
